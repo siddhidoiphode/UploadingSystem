@@ -1,0 +1,290 @@
+{% comment %} <!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Image or File</title>
+</head>
+<body>
+    <h1>Upload Image or File</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Upload</button>
+    </form>
+
+    <h2>Uploaded Content</h2>
+    <ul>
+        {% for content in uploaded_contents %}
+            <li>
+                {% if content.photo %}
+                    <a href="{{ content.photo.url }}" > 
+                        <img src="{{ content.photo.url }}" alt="Uploaded Image" style="width: 200px;">
+                    </a>
+                      <a href="{{ content.photo.url }}" download="{{ content.photo.name }}">
+                        <button type="button">Download Image</button>
+                    </a>
+                {% endif %}
+                {% if content.file %}
+                    <a href="{{ content.file.url }}">{{ content.file.name }}</a>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html> {% endcomment %}
+                              
+
+
+
+
+
+
+
+
+{% comment %} 
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload System</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom right, #6a0572,rgb(248, 43, 221),rgb(45, 131, 236));
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Centered Card */
+        .card-container {
+            background-color:rgba(14, 11, 11, 0.97);
+            border-radius: 15px;
+            width: 80%;
+            max-width: 1200px;
+            padding: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); 
+            color: #333;
+            overflow: hidden;
+        }
+
+        h1, h2 {
+            text-align: center;
+            font-family: 'Verdana', sans-serif;
+            margin-bottom: 20px;
+            color: #6a0572;
+        }
+
+        /* Upload Form */
+        form {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        form button {
+            background-color: #8e44ad;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        form button:hover {
+            background-color: #732d91;
+        }
+
+        /* Gallery Grid */
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        /* Individual Item Card */
+        .content-item {
+            background-color:rgba(34, 9, 9, 0.62);
+            border-radius: 10px;
+            padding: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .content-item img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .content-item button {
+            background-color: #8e44ad;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            font-size: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .content-item button:hover {
+            background-color: #732d91;
+        }
+
+        .content-item a {
+            color: #8e44ad;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .content-item a:hover {
+            color: #732d91;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="card-container">
+        <h1>Upload Image or File</h1>
+        {% comment %} <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Upload</button>
+        </form> {% endcomment %}
+{% comment %} 
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.photo.label_tag }}: {{ form.photo }}
+            <br><br>
+            {{ form.file.label_tag }}: {{ form.file }}
+            <br><br>
+            <button type="submit">Upload</button>
+        </form>
+        
+
+        <h2>Uploaded Content</h2>
+        <div class="gallery">
+            {% for content in uploaded_contents %}
+                <div class="content-item">
+                    {% if content.photo %}
+                        <a href="{{ content.photo.url }}" target="_blank">
+                            <img src="{{ content.photo.url }}" alt="Uploaded Image">
+                        </a>
+                        <a href="{{ content.photo.url }}" download="{{ content.photo.name }}">
+                            <button type="button">Download Image</button>
+                        </a>
+                    {% endif %}
+                    {% if content.file %}
+                        <p>
+                            <a href="{{ content.file.url }}" target="_blank">
+                                Download File: {{ content.file.name }}
+                            </a>
+                        </p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html> {% endcomment %}
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Content</title>
+</head>
+<body>
+    <h1>Upload Image or File</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.photo.label_tag }}: {{ form.photo }} <br><br>
+        {{ form.file.label_tag }}: {{ form.file }} <br><br>
+        <button type="submit">Upload</button>
+    </form>
+
+    <h2>Uploaded Content</h2>
+    <div>
+        {% for content in uploaded_contents %}
+            <div>
+                {% if content.photo %}
+                    <a href="{{ content.photo.url }}" target="_blank">
+                        <img src="{{ content.photo.url }}" alt="Uploaded Image" width="150">
+                    </a>
+                    <a href="{{ content.photo.url }}" download="{{ content.photo.name }}">Download Image</a>
+                {% endif %}
+                {% if content.file %}
+                    <p>
+                        <a href="{{ content.file.url }}" target="_blank">
+                            Download File: {{ content.file.name }}
+                        </a>
+                    </p>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

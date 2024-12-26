@@ -1,0 +1,166 @@
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Content</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            {% comment %} background: linear-gradient(to right, rgb(137, 94, 184), rgb(241, 244, 250)); {% endcomment %}
+            background: linear-gradient(to right, rgb(127, 10, 182), rgb(22, 95, 240), rgb(236, 94, 196));           
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 18px 20px rgba(0, 0, 0, 0.2);
+        }
+        h1, h2 {
+            text-align: center;
+            color: rgb(137, 94, 184);
+        }
+        form {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        form input, form button {
+            margin: 10px 0;
+            padding: 10px;
+            width: 100%;
+            max-width: 400px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        form button {
+            background: rgb(137, 94, 184);
+            
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        form button:hover {
+            background: rgb(100, 70, 150);
+        }
+        .uploaded-content {
+            margin-top: 20px;
+        }
+        .uploaded-content .content-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .content-grid .content-item {
+            background: #f4f4f8;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .content-grid img {
+            max-width: 100%;
+            max-height: 150px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+        .content-grid a {
+            text-decoration: none;
+            color: rgb(137, 94, 184);
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        .content-grid a:hover {
+            color: rgb(100, 70, 150);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Upload Image or File</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Upload</button>
+        </form>
+        <div class="uploaded-content">
+            <h2>Uploaded Content</h2>
+            <div class="content-grid">
+                {% for content in uploaded_contents %}
+                    <div class="content-item">
+                        {% if content.photo %}
+                            <img src="{{ content.photo.url }}" alt="Uploaded Photo">
+                        {% endif %}
+                        {% if content.file %}
+                            <a href="{{ content.file.url }}" target="_blank">
+                                {% comment %} <img src="https://cdn-icons-png.flaticon.com/512/1828/1828483.png"  {% endcomment %}
+                                     {% comment %} alt="File Icon"  {% endcomment %}
+                                     {% comment %} style="width: 50px; height: 50px;"> {% endcomment %}
+                                <br>
+                                File : {{ content.file.name }}
+                            </a>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Image or File</title>
+</head>
+<body>
+    <h1>Upload Image or File</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Upload</button>
+    </form>
+
+    <h2>Uploaded Content</h2>
+    <ul>
+        {% for content in uploaded_contents %}
+            <li>
+                {% if content.photo %}
+                    <img src="{{ content.photo.url }}" alt="Uploaded Image" style="width: 200px;">
+                {% endif %}
+                {% if content.file %}
+                    <a href="{{ content.file.url }}">{{ content.file.name }}</a>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
